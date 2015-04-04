@@ -25,6 +25,7 @@ RUN mkdir /root/.ssh
 VOLUME /root/.ssh
 RUN sudo adduser go sudo
 RUN echo %go ALL=NOPASSWD:ALL > /etc/sudoers.d/go
+RUN rm -rf go-agent-14.4.0-1356.deb
 
 ADD entrypoint.sh /opt/entrypoint.sh
 RUN chmod +x /opt/entrypoint.sh
