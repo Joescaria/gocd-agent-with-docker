@@ -10,7 +10,7 @@ RUN echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-
 RUN echo debconf shared/accepted-oracle-license-v1-1 seen true | sudo debconf-set-selections
 RUN apt-get -y install oracle-java8-installer
 
-RUN apt-get install apt-transport-https git
+RUN apt-get install apt-transport-https 
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9
 RUN sh -c "echo deb https://get.docker.com/ubuntu docker main > /etc/apt/sources.list.d/docker.list"
 RUN apt-get -y update
@@ -26,6 +26,7 @@ VOLUME /root/.ssh
 RUN sudo adduser go sudo
 RUN echo %go ALL=NOPASSWD:ALL > /etc/sudoers.d/go
 RUN rm -rf go-agent-14.4.0-1356.deb
+RUN apt-get -y install git
 
 ADD entrypoint.sh /opt/entrypoint.sh
 RUN chmod +x /opt/entrypoint.sh
