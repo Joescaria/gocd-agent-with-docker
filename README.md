@@ -29,12 +29,14 @@ Go agent stores its data at the following location
 	/var/lib/go-agent        contains the binaries
 	/usr/share/go-agent      contains the start script
 	/var/log/go-agent        contains the agent logs
-	/root/.ssh               stores the ssh keys
 
 This Go agent data needs to be persisted. The following persists the data on the host at location of your choice. 
 
-	docker run -d --privileged -e="GO_SERVER_IP=go-server-ip-address-from-before" \ 
-	-v location-on-host:/root/.ssh \
+	docker run -d --privileged 
+	-e "GO_SERVER_IP=go-server-ip-address-from-before" \
+        -e "AWS_ACCESS_KEY=acces_key" \
+        -e "AWS_SECRET_KEY=secret_key" \
+        -e "REGION=region" \ 
 	-v location-on-host:/var/lib/go-agent \
 	-v location-on-host:/usr/share/go-agent \
 	-v location-on-host:/var/log/go-agent \ 

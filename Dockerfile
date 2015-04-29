@@ -21,8 +21,6 @@ RUN wget http://download.go.cd/gocd-deb/go-agent-14.4.0-1356.deb
 RUN apt-get -y install unzip
 RUN dpkg -i go-agent-14.4.0-1356.deb
 RUN sed -i 's/DAEMON=Y/DAEMON=N/g' /etc/default/go-agent
-RUN mkdir /root/.ssh
-VOLUME /root/.ssh
 RUN sudo adduser go sudo
 RUN echo %go ALL=NOPASSWD:ALL > /etc/sudoers.d/go
 RUN rm -rf go-agent-14.4.0-1356.deb
@@ -31,6 +29,10 @@ RUN apt-get install -y python-pip
 RUN pip install awscli
 RUN mkdir $HOME/.aws
 
+USER go
+RUN ssh-keygen -N "" -f /var/go/.ssh/id_rsa
+
+USER root
 ADD entrypoint.sh /opt/entrypoint.sh
 RUN chmod +x /opt/entrypoint.sh
 CMD ["/opt/entrypoint.sh"]
