@@ -29,6 +29,9 @@ RUN apt-get install -y python-pip
 RUN pip install awscli
 
 USER go
+RUN sudo mkdir /opt/data
+RUN sudo chown -R go:go /opt/data
+VOLUME /opt/data
 ADD entrypoint.sh /opt/entrypoint.sh
 RUN sudo chmod +x /opt/entrypoint.sh
 CMD ["/opt/entrypoint.sh"]
